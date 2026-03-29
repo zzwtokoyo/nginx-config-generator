@@ -10,13 +10,13 @@ export function activate(context: vscode.ExtensionContext) {
 
     // 注册：生成基础 Nginx 配置
     let disposableGenerate = vscode.commands.registerCommand('nginxGen.generate', async (uri: vscode.Uri) => {
-        const workspaceFolder = uri || vscode.workspace.workspaceFolders?.[0];
-        if (!workspaceFolder) {
+        const workspaceFolder = vscode.workspace.workspaceFolders?.[0];
+        if (!uri && !workspaceFolder) {
             vscode.window.showErrorMessage('请先打开一个工作区文件夹');
             return;
         }
 
-        const targetPath = uri?.fsPath || (workspaceFolder as vscode.WorkspaceFolder).uri.fsPath;
+        const targetPath = uri?.fsPath || workspaceFolder!.uri.fsPath;
         
         try {
             // 检测项目类型
