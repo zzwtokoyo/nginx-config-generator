@@ -8,3 +8,6 @@ PUBLISH_GUIDE.md
 node_modules/**
 out/**/*.map
 out/test/**
+create-icon.js
+generate-icon.js
+icon.svg
