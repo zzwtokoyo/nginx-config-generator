@@ -1,0 +1,125 @@
+{
+  "name": "nginx-config-generator",
+  "displayName": "Nginx Config Generator",
+  "description": "为 Web 项目自动生成 Nginx 配置文件，支持 React、Vue、Angular 等框架",
+  "version": "1.0.0",
+  "publisher": "zzwtokoyo",
+  "author": {
+    "name": "zzwtokoyo"
+  },
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Debuggers",
+    "Other"
+  ],
+  "keywords": [
+    "nginx",
+    "config",
+    "react",
+    "vue",
+    "angular",
+    "reverse-proxy",
+    "deployment"
+  ],
+  "activationEvents": [
+    "onCommand:nginxGen.generate",
+    "workspaceContains:**/package.json",
+    "workspaceContains:**/angular.json",
+    "workspaceContains:**/vite.config.*",
+    "workspaceContains:**/next.config.*"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "nginxGen.generate",
+        "title": "生成 Nginx 配置",
+        "category": "Nginx Generator",
+        "icon": "$(server)"
+      },
+      {
+        "command": "nginxGen.generateAdvanced",
+        "title": "生成高级 Nginx 配置",
+        "category": "Nginx Generator"
+      },
+      {
+        "command": "nginxGen.preview",
+        "title": "预览 Nginx 配置",
+        "category": "Nginx Generator"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "nginxGen.generate",
+          "group": "2_workspace@5",
+          "when": "explorerResourceIsFolder"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "nginxGen.generate"
+        },
+        {
+          "command": "nginxGen.generateAdvanced"
+        },
+        {
+          "command": "nginxGen.preview"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Nginx Config Generator",
+      "properties": {
+        "nginxGen.defaultPort": {
+          "type": "number",
+          "default": 80,
+          "description": "默认 Nginx 监听端口"
+        },
+        "nginxGen.enableHttps": {
+          "type": "boolean",
+          "default": false,
+          "description": "默认启用 HTTPS"
+        },
+        "nginxGen.enableGzip": {
+          "type": "boolean",
+          "default": true,
+          "description": "默认启用 Gzip 压缩"
+        },
+        "nginxGen.enableCache": {
+          "type": "boolean",
+          "default": true,
+          "description": "默认启用静态资源缓存"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "package": "vsce package",
+    "publish": "vsce publish"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.74.0",
+    "@types/node": "16.x",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "eslint": "^8.28.0",
+    "typescript": "^4.9.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zzwtokoyo/nginx-config-generator"
+  },
+  "bugs": {
+    "url": "https://github.com/zzwtokoyo/nginx-config-generator/issues"
+  },
+  "homepage": "https://github.com/zzwtokoyo/nginx-config-generator#readme"
+}
